@@ -1,0 +1,26 @@
+echo "Enter Project Name(all smallcase)":
+read fileName
+echo "do you want to install tailwind in react(y/n)"
+read tailwind
+echo "do you want to install react router dom(y/n):"
+read routerDom
+
+
+npx create-react-app $fileName
+cd $fileName
+if [ $tailwind != "n" ]
+then
+    echo "installing tailwind"
+    npm install -D tailwindcss
+    npx tailwindcss init
+    echo "/** @type {import('tailwindcss').Config} */\nmodule.exports = {\n\tcontent: [\n\t\t\"./src/**/*.{js,jsx,ts,tsx}\",\n\t],\n\ttheme: {\n\t\textend: {},\n\t},\n\tplugins: [],\n}" > tailwind.config.js
+    cd src
+    echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > index.css
+    cd ..
+fi 
+if [ $routerDom != "n" ]
+then
+    echo "installing react-dom"
+    npm install react-router-dom
+fi 
+npm start
