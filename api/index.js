@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 
-const port = 3000;
+const port = 3005;
 
 app.listen(port,()=>{
     console.log("Server is running on port on", port)
@@ -30,7 +30,7 @@ app.use((err, req, res, next)=>{
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
     res.status(statusCode).json({
-        sucess:false,
+        success:false,
         statusCode,
         message
     });
