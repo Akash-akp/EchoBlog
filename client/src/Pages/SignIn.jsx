@@ -4,11 +4,14 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'
 import { AiOutlineEye , AiOutlineEyeInvisible } from "react-icons/ai";
+import { signInFailure , signInStart , signInSuccess } from '../Redux/user/userSlice';
+import { useDispatch , useSelector } from 'react-redux';
 
 const SignIn = () => {
-  const [loading , setLoading] = useState(false);
+  const { loading , error:errorMessage } = useSelector(state => state.user)
   const navigate = useNavigate();
   const [eyeVisible,setEyeVisible] = useState(true);
+  const dispatch = useDispatch();
     const [formData , setFormData] = useState({userId:"",userPassword:""});
     const changeHandler = (event)=>{
         // console.log(formData);
@@ -20,13 +23,13 @@ const SignIn = () => {
       setEyeVisible(!eyeVisible);
     }
     const signInHandler = async(event) =>{
-      setLoading(true);
       event.preventDefault();
       const UserData = {
         email: formData.userId,
         password: formData.userPassword
       }
       try{
+        dispatch(signInStart);
         const res = await fetch('/api/auth/signin',{
           method: 'post',
           headers: {'Content-Type': 'application/json'},
@@ -34,15 +37,16 @@ const SignIn = () => {
         });
         const data = await res.json();
         if(data.success===false){
-          toast.error(data.message);
+          dispatch(signInFailure(data.message));
+          toast.error(errorMessage);
         }else{
-          toast.success("Loggedin");
+          dispatch(signInSuccess(data));
+          toast.success(errorMessage);
           navigate('/')
         }
       }catch(error){
-
+        dispatch(signInFailure(error.message));
       }
-      setLoading(false);
     }
   return (
     <div>
