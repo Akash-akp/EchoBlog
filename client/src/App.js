@@ -7,6 +7,7 @@ import Header from './Components/Header';
 import Project from './Pages/Project';
 import Contact from './Pages/Contact';
 import FormUI from './Pages/FormUI';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/project' element={<Project />} />
         <Route path='/contact' element={<Contact />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
