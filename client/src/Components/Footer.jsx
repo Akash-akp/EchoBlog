@@ -11,7 +11,7 @@ const Footer = () => {
         <div className='text-2xl font-semibold'>
             EchoBlog
         </div>
-        <div className='flex w-[600px] justify-around absolute right-0'>
+        <div className='flex md:w-[600px] w-[400px] justify-around absolute right-0'>
             <div className=''>
                 <h1 className='text-md font-semibold'> ABOUT </h1>
                 <Link className='text-sm my-2 block hover:underline'>About Section</Link>
