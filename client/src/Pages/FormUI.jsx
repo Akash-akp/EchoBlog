@@ -37,7 +37,7 @@ const FormUI = () => {
                     </div>
                 </div>
                 <div className='md:w-[50%] w-full relative flex justify-center items-center'>
-                    <div className='bg-white dark:bg-gray-800 dark:text-white w-[80%] h-[530px] rounded-2xl shadow-lg'>
+                    <div className='bg-white dark:bg-gray-800 dark:text-white md:w-[80%] w-[90%] h-[530px] rounded-2xl shadow-lg'>
                         <div className='flex justify-center items-center gap-2 mb-5 mt-7'>
                             {/* <img src={logo} alt='' className='h-[45px]'></img> */}
                             <div className='text-3xl font-semibold'>EchoBlog</div>
