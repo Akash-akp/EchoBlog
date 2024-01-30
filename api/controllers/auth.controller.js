@@ -26,8 +26,7 @@ export const signup = async(req,res,next) =>{
 };
 
 export const signin = async(req,res,next) => {
-    console.log(req.body);
-    const {email , password} = req.body;
+    const { email , password } = req.body;
     if(!email || !password){
         return next(errorHandler(400,"All field are required"));
     }
@@ -44,6 +43,7 @@ export const signin = async(req,res,next) => {
         const token = jwt.sign(
             { userId: validUser._id} , process.env.JWT_SECRET
         );
+        validUser.message = "Loggedin";
         const {password:pass , ...rest} = validUser._doc;
         res
         .status(200)

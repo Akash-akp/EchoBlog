@@ -13,8 +13,11 @@ import Footer from './Components/Footer';
 function App() {
   return (
     <div>
+      {/* Browser Routes from react-router-dom for routing */}
       <BrowserRouter>
-        <Header />
+        <Header /> {/* Nav Bar */}
+
+        {/* Routes listed */}
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
@@ -24,7 +27,8 @@ function App() {
           <Route path='/project' element={<Project />} />
           <Route path='/contact' element={<Contact />} />
         </Routes>
-        <Footer />
+        
+        <Footer /> {/* Footer Section */}
       </BrowserRouter>
     </div>
   );

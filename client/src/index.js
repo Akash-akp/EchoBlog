@@ -11,10 +11,14 @@ import ThemeChanger from './Components/ThemeChanger';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // Persist redux for saving the state in brwoswer
   <PersistGate persistor={persistor} >
+    {/* Redux Provider */}
     <Provider store={store}>
+      {/* Theme Changer is for dark Mode */}
       <ThemeChanger>
         <App />
+        {/* react-hot-toast used */}
         <Toaster />
       </ThemeChanger>
     </Provider>

@@ -6,7 +6,7 @@ import img1 from '../img/illustration1.png'
 import { useLocation } from 'react-router-dom'
 
 const FormUI = () => {
-    const location = useLocation();
+    const location = useLocation(); // location used to know current path
   return (
     <div className='bg-[rgb(233,226,245)] dark:bg-gray-400 h-[100vh] w-full flex justify-center items-center'>
         <div className='bg-[rgb(240,240,240)] dark:bg-gray-300 h-[600px] xl:w-[80%] w-[90%] rounded-2xl relative overflow-hidden shadow-lg'>
@@ -43,6 +43,7 @@ const FormUI = () => {
                             <div className='text-3xl font-semibold'>EchoBlog</div>
                         </div>
                         <div className='mx-5'>
+                            {/* Import the form part(Signup/Signin)*/}
                             {location.pathname==='/sign-up'?(<SignUp />):location.pathname==='/sign-in'?(<SignIn />):(<div></div>)}
                         </div>
                     </div>

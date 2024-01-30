@@ -8,10 +8,13 @@ import { useDispatch , useSelector } from 'react-redux';
 import ContinueWithGoogle from '../Components/ContinueWithGoogle';
 
 const SignIn = () => {
+  // import loading and errorMessage from redux 
   const { loading , error:errorMessage } = useSelector(state => state.user)
   const navigate = useNavigate();
   const [eyeVisible,setEyeVisible] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // used to call the redux functions
+
+    // handle form change data
     const [formData , setFormData] = useState({userId:"",userPassword:""});
     const changeHandler = (event)=>{
         // console.log(formData);
@@ -19,9 +22,13 @@ const SignIn = () => {
             return {...prev ,[event.target.name]:event.target.value}
         })
     }
+
+    // handle visible password 
     const eyeChangeHandler = () =>{
       setEyeVisible(!eyeVisible);
     }
+
+    // handle signin
     const signInHandler = async(event) =>{
       event.preventDefault();
       const UserData = {
@@ -39,16 +46,17 @@ const SignIn = () => {
         console.log(data);
         if(data.success===false){
           dispatch(signInFailure(data.message));
-          toast.error(errorMessage);
+          toast.error("Invalid Credential");
         }else{
           dispatch(signInSuccess(data));
-          toast.success(errorMessage);
+          toast.success("Logged in");
           navigate('/')
         }
       }catch(error){
         dispatch(signInFailure(error.message));
       }
     }
+    
   return (
     <div>
         <div className='text-center mb-5'>

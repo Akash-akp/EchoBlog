@@ -6,6 +6,7 @@ import { AiOutlineEye , AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast }  from 'react-hot-toast'
 
 const SignUp = () => {
+    // states 
     const [loading , setLoading] = useState(false);
     const navigate = useNavigate();
     const [eyeVisible,setEyeVisible] = useState(true);
@@ -18,6 +19,7 @@ const SignUp = () => {
         })
     }
 
+    // handle password visibility
     const eyeChangeHandler = () =>{
       setEyeVisible(!eyeVisible);
     }
@@ -46,6 +48,7 @@ const SignUp = () => {
           body: JSON.stringify(UserData)
         });
         const data = await res.json();
+        console.log(data);
         if(data.success===false){
           toast.error("Account already exist")
         }else{
