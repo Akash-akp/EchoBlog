@@ -1,1 +1,3 @@
 # EchoBlog
+
+I will add script soon...
