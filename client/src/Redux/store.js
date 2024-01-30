@@ -1,11 +1,13 @@
 import { configureStore , combineReducers } from '@reduxjs/toolkit'
 import userReducer from './user/userSlice'
+import darkReducer from './user/darkSlice';
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage';
 import persistStore from 'redux-persist/es/persistStore';
 
 const rootReducer = combineReducers({
-  user:userReducer
+  user:userReducer,
+  dark:darkReducer
 });
 
 const persistConfig = {

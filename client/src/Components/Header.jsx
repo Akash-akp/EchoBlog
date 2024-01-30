@@ -3,22 +3,20 @@ import { Link , NavLink , useLocation } from "react-router-dom"
 import { IoMdMoon } from "react-icons/io";
 import { MdSunny } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
+import { useDispatch , useSelector } from 'react-redux';
+import { changeMode } from '../Redux/user/darkSlice'
 
 const Header = () => {
     const location = useLocation();
-    const [ darkMode, setDarkMode ] = useState(false);
-
+    const { mode:darkMode } = useSelector(state => state.dark);
+    const dispatch = useDispatch();
+  console.log(darkMode);
     const navLinkClickHandler = (path) =>{
         return location.pathname===path?('block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500'):("block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700");
     }
 
     const darkModeHandler = () => {
-        if(darkMode){
-            document.body.classList.remove('dark');
-        }else{
-            document.body.classList.add('dark')
-        }
-        setDarkMode(!darkMode);
+        dispatch(changeMode());
     }
 
     const searchHandler = (event) => {

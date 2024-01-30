@@ -7,13 +7,16 @@ import { Toaster } from 'react-hot-toast'
 import { store , persistor } from './Redux/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import ThemeChanger from './Components/ThemeChanger';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <PersistGate persistor={persistor} >
     <Provider store={store}>
-      <App />
-      <Toaster />
+      <ThemeChanger>
+        <App />
+        <Toaster />
+      </ThemeChanger>
     </Provider>
   </PersistGate>
 );

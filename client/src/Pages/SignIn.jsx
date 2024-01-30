@@ -1,11 +1,11 @@
 import React from 'react'
-import GoogleImage from '../img/google.png'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'
 import { AiOutlineEye , AiOutlineEyeInvisible } from "react-icons/ai";
 import { signInFailure , signInStart , signInSuccess } from '../Redux/user/userSlice';
 import { useDispatch , useSelector } from 'react-redux';
+import ContinueWithGoogle from '../Components/ContinueWithGoogle';
 
 const SignIn = () => {
   const { loading , error:errorMessage } = useSelector(state => state.user)
@@ -87,14 +87,7 @@ const SignIn = () => {
             <div className='text-sm w-[330px] text-center dark:text-white'>Continue with</div>
             <div className='border w-full'></div>
         </div>
-        <div className='border border-gray-300 rounded-lg w-[280px] my-3 px-3 py-2 text-sm cursor-pointer relative'>
-            <div className='absolute left-3 top-1'>
-                <img src={GoogleImage} className='h-[30px]' alt='google-img'></img>
-            </div>
-            <div className='text-center'>
-                Google
-            </div>
-        </div>
+        <ContinueWithGoogle />
       </div>
     </div>
   )
