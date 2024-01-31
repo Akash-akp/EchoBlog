@@ -55,3 +55,20 @@ export const signin = async(req,res,next) => {
         next(error);
     }
 };
+
+export const google = (req , res , next) => {
+    const {name,email,image} = req.body;
+    try{
+        const alreadyUser = User.findOne({email});
+        if(alreadyUser){
+            const token = jwt.sign({id: alreadyUser._id}, process.env.JWT_SECRET);
+        }
+    }catch(error){
+
+    }
+    const newUser = new User({
+        userName: name,
+        email,
+        profilePhoto: image
+    })
+}

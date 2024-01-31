@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/user.route.js'
 import authRoutes from './routes/auth.route.js'
 
+// config .env file
 dotenv.config();
 
 mongoose.connect(process.env.Mongo_URL)
@@ -15,6 +16,7 @@ mongoose.connect(process.env.Mongo_URL)
 
 const app = express();
 
+// app use jwt
 app.use(express.json());
 
 const port = 3005;

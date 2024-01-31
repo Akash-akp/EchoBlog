@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 const FormUI = () => {
     const location = useLocation(); // location used to know current path
   return (
-    <div className='bg-[rgb(233,226,245)] dark:bg-gray-400 h-[100vh] w-full flex justify-center items-center'>
+    <div className='bg-[rgb(233,226,245)] dark:bg-gray-700 h-[100vh] w-full flex justify-center items-center'>
         <div className='bg-[rgb(240,240,240)] dark:bg-gray-300 h-[600px] xl:w-[80%] w-[90%] rounded-2xl relative overflow-hidden shadow-lg'>
             <div className='bg-violet-500 h-[340px] w-[340px] rounded-full absolute top-[5%] left-[25%] blur-[100px]'>
 

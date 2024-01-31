@@ -70,8 +70,8 @@ const Header = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/about' className={navLinkClickHandler('/about')}>
-                  About
+                <NavLink to='/blog' className={navLinkClickHandler('/blog')}>
+                  Blog
                 </NavLink>
               </li>
               <li>
