@@ -4,8 +4,8 @@ import StandardBtn from './StandardBtn'
 
 const HeroSection = () => {
   return (
-    <div>
-      <div className="flex relative w-full items-center">
+    <div className='flex justify-center'>
+      <div className="flex relative w-full items-center max-w-[1280px]">
         <div className='w-[750px] p-10 flex flex-col gap-5'> 
           <h1 className='text-5xl font-sans font-bold'>
             Discover Nice Article Here

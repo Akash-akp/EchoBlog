@@ -29,7 +29,8 @@ const Testimonials = ({data}) => {
     }
     
   return (
-    <div className='text-center py-9 flex flex-col justify-center items-center '>
+    <div className=''>
+    <div className='max-w-[1280px] mx-auto text-center py-9 flex flex-col justify-center items-center '>
       <h2 className='text-lg'>
         SEE WHAT OUR CLIENTS HAVE TO SAY
       </h2>
@@ -66,6 +67,7 @@ const Testimonials = ({data}) => {
             <GoDotFill className={currentColor(7)} />
         </div>
       </div>
+    </div>
     </div>
   )
 }

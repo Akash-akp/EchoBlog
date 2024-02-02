@@ -3,8 +3,8 @@ import { TiTick } from "react-icons/ti";
 
 const WorkSection = () => {
   return (
-    <div>
-      <div className='mx-12 my-5 py-[40px]'>
+    <div className='flex justify-center'>
+      <div className='mx-12 my-5 py-[40px] max-w-[1280px]'>
         <div>
           <h1 className='text-5xl my-9 font-bold'>WHAT DO WE PROVIDE?</h1>
           <ul className='text-2xl flex flex-col gap-5'>

@@ -2,19 +2,23 @@ import React from 'react'
 import GoogleImage from '../img/google.png'
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
 import { app } from '../firebase'
-
+import { signInSuccess } from '../Redux/user/userSlice.js';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 
 const ContinueWithGoogle = () => {
     const auth = getAuth(app);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const ContinueWithGoogleHandler = async() => {
         const Provider = new GoogleAuthProvider();
         Provider.setCustomParameters({ prompt: 'select_account' });
         try{
             const resultFromGoogle = await signInWithPopup(auth, Provider);
-            console.log(resultFromGoogle);
+            // console.log(resultFromGoogle);
             const res = await fetch('/api/auth/google',{
-                method : 'post',
-                headers : {'ContentType' : 'application/json'},
+                method : 'POST',
+                headers : {'Content-Type' : 'application/json'},
                 body : JSON.stringify({
                     name: resultFromGoogle.user.displayName,
                     email: resultFromGoogle.user.email,
@@ -22,8 +26,10 @@ const ContinueWithGoogle = () => {
                 })
             });
             const data = await res.json();
+            console.log(data);
             if(res.ok){
-                console.log(data);
+                dispatch(signInSuccess(data));
+                navigate('/');
             }
         }catch(error){
             console.log(error);

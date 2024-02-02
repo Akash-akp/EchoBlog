@@ -14,7 +14,6 @@ const Home = () => {
       const res = await fetch('https://akash-akp.github.io/api-test/testimonialReview.js');
       const d = await res.json();
       setData(d);
-      console.log(data);
     }catch(error){
       console.log("api error")
     }
@@ -22,7 +21,7 @@ const Home = () => {
   }
   useEffect(()=>{
     fetchData();
-  });
+  },[]);
 
   return (
     <div className='bg-lightBgColor dark:bg-gray-700 dark:text-white'>

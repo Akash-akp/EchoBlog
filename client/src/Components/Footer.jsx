@@ -8,6 +8,7 @@ import { FaGithub } from "react-icons/fa";
 const Footer = () => {
   return (
     <div className='h-[250px] w-full bg-white dark:bg-gray-900 dark:text-white p-5 border-t-4 border-gray-500 dark:border-gray-300 relative'>
+        <div className='max-w-[1280px] h-full relative mx-auto'>
         <div className='text-2xl font-semibold'>
             EchoBlog
         </div>
@@ -42,6 +43,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
   )
