@@ -1,4 +1,4 @@
-import { React , useState } from "react";
+import { React , useState , useRef, useEffect } from "react";
 import { Link , NavLink , useLocation } from "react-router-dom"
 import { IoMdMoon } from "react-icons/io";
 import { MdSunny } from "react-icons/md";
@@ -8,6 +8,22 @@ import { changeMode } from '../Redux/user/darkSlice'
 
 const Header = () => {
     const [profileDropdown , setProfileDropdown] = useState(false);
+    const dropdownRef = useRef();
+    const darkmodeRef = useRef();
+    console.log(dropdownRef);
+
+    useEffect( () => {
+      let dropdownHandler = (e)=>{
+        if(!dropdownRef.current.contains(e.target)&&!darkmodeRef.current.contains(e.target)){
+          setProfileDropdown(false);
+        }
+      };
+      document.addEventListener('mousedown',dropdownHandler);
+      return () =>{
+        document.removeEventListener('mousedown',dropdownHandler);
+      }
+    })
+
     const location = useLocation();
     const { mode:darkMode } = useSelector(state => state.dark);
     const { currentUser } = useSelector(state => state.user);
@@ -51,15 +67,16 @@ const Header = () => {
                 </div>
             </form>
           <div className="flex items-center md:order-2 space-x-3 md:space-x-4 rtl:space-x-reverse">
-            <button onClick={darkModeHandler} className=" h-[30px] w-[30px] flex justify-center items-center rounded-full text-sm border text-gray-800 dark:text-gray-300 dark:border-gray-300 border-gray-800 ">
+            <button onClick={darkModeHandler} className=" h-[30px] w-[30px] flex justify-center items-center rounded-full text-sm border text-gray-800 dark:text-gray-300 dark:border-gray-300 border-gray-800 " ref={darkmodeRef} >
                 {darkMode?(<MdSunny />):(<IoMdMoon />)}
             </button>
             {currentUser?
-            (<div className="max-w-[1280px] relative">
+            (<div className="max-w-[1280px] relative" ref={dropdownRef}>
               <button onClick={()=>setProfileDropdown(!profileDropdown)}>
                 <img src={currentUser.profilePhoto} alt="user-img" className="h-[40px] w-[40px] rounded-full border border-black dark:border-white"/>
               </button>
-              <div class={(profileDropdown?("absolute translate-y-0 block right-0 "):("absolute scale-0 -translate-y-20 translate-x-8 right-0 "))+" bg-white rounded-lg shadow dark:bg-gray-900 border dark:border-gray-700 transition-transform duration-500 ease-in-out"}>
+              <div class={(profileDropdown?("absolute translate-y-0 block right-0 opacity-100 "):("absolute scale-0 -translate-y-20 translate-x-8 right-0 opacity-0 "))+" bg-white rounded-lg shadow dark:bg-gray-900 border dark:border-gray-700 transition-transform duration-500 ease-in-out"}
+              >
                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li className="mb-2">
                         <Link to='/dashboard' onClick={()=>setProfileDropdown(false)} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
