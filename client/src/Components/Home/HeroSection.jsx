@@ -1,6 +1,6 @@
 import React from 'react'
 import blogHeroImg from '../img/blog-hero-img.png'
-import StandardBtn from './StandardBtn'
+import StandardBtn from '../StandardBtn'
 
 const HeroSection = () => {
   return (

@@ -5,14 +5,16 @@ import { MdSunny } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch , useSelector } from 'react-redux';
 import { changeMode } from '../Redux/user/darkSlice'
+import { logout } from "../Redux/user/userSlice";
 
 const Header = () => {
   const [profileDropdown , setProfileDropdown] = useState(false);
   const dropdownRef = useRef();
   const darkmodeRef = useRef();
+  const { currentUser } = useSelector(state => state.user);
   useEffect( () => {
     let dropdownHandler = (e)=>{
-      if(!dropdownRef.current.contains(e.target)&&!darkmodeRef.current.contains(e.target)){
+      if(currentUser&&!dropdownRef.current.contains(e.target)&&!darkmodeRef.current.contains(e.target)){
         setProfileDropdown(false);
       }
     };
@@ -24,7 +26,6 @@ const Header = () => {
     const location = useLocation();
     console.log(location.search);
     const { mode:darkMode } = useSelector(state => state.dark);
-    const { currentUser } = useSelector(state => state.user);
     const dispatch = useDispatch();
     const navLinkClickHandler = (path) =>{
         return location.pathname===path?('block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500'):("block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700");
@@ -80,7 +81,7 @@ const Header = () => {
                     </li>
                     <div className="h-[1px] w-[90%] mx-auto bg-gray-300 dark:bg-gray-500"></div>
                     <li className="mt-2">
-                        <Link onClick={()=>setProfileDropdown(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Log Out</Link>
+                        <Link onClick={()=>{setProfileDropdown(false); dispatch(logout()); }} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Log Out</Link>
                     </li>
                    </ul>
                </div>

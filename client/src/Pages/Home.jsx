@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Testimonials from '../Components/Testimonials'
-import Carousel from '../Components/Carousel'
-import HeroSection from '../Components/HeroSection'
-import WorkSection from '../Components/WorkSection';
+import Testimonials from '../Components/Home/Testimonials'
+import Carousel from '../Components/Home/Carousel'
+import HeroSection from '../Components/Home/HeroSection'
+import WorkSection from '../Components/Home/WorkSection';
 
 const Home = () => {
 

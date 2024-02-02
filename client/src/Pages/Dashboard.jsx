@@ -12,7 +12,7 @@ const Dashboard = () => {
   }, [location.search , setTab]);
 
   return (
-    <div>
+    <div className='h-screen'>
       Dashboard - {new URLSearchParams(location.search).get('tab')}
     </div>
   )
