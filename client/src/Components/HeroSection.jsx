@@ -13,7 +13,7 @@ const HeroSection = () => {
           <p className='text-lg text-gray-700 dark:text-gray-400 py-2'>
             All the articles and content on the site are <span className='text-black font-medium dark:text-white'>updated daily</span>, and <br /> don't forget to let <span className='text-black font-medium dark:text-white'>your Blog Echo here</span>.
           </p>
-          <StandardBtn value={"Discover Blogs"} addon="rounded-full text-xl "/>
+          <StandardBtn address="/blog" value="Discover Blogs" addon="rounded-full text-xl "/>
         </div>
         <div className='md:w-[60%]'>
           <img src={blogHeroImg} alt="" className='lg:w-[100%] lg:relative absolute top-0 right-0 w-[40%] md:block hidden' />
