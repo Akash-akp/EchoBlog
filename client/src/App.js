@@ -8,6 +8,7 @@ import Project from './Pages/Project';
 import Contact from './Pages/Contact';
 import FormUI from './Pages/FormUI';
 import Footer from './Components/Footer';
+import PrivateRouter from './Components/PrivateRouter';
 
 
 function App() {
@@ -20,12 +21,14 @@ function App() {
         {/* Routes listed */}
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/blog' element={<Blog />} />
           <Route path='/sign-in' element={<FormUI />} />
           <Route path='/sign-up' element={<FormUI />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/project' element={<Project />} />
-          <Route path='/contact' element={<Contact />} />
+          <Route element={<PrivateRouter />}>
+            <Route path='/blog' element={<Blog />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/project' element={<Project />} />
+          </Route>
         </Routes>
         
         <Footer /> {/* Footer Section */}

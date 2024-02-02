@@ -59,14 +59,14 @@ const Header = () => {
               <button onClick={()=>setProfileDropdown(!profileDropdown)}>
                 <img src={currentUser.profilePhoto} alt="user-img" className="h-[40px] w-[40px] rounded-full border border-black dark:border-white"/>
               </button>
-              <div class={(profileDropdown?("absolute top-[50px] right-0 "):("hidden "))+" bg-white rounded-lg shadow dark:bg-gray-900 border dark:border-gray-700"}>
+              <div class={(profileDropdown?("absolute translate-y-0 block right-0 "):("absolute scale-0 -translate-y-20 translate-x-8 right-0 "))+" bg-white rounded-lg shadow dark:bg-gray-900 border dark:border-gray-700 transition-transform duration-500 ease-in-out"}>
                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li className="mb-2">
-                        <Link class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
+                        <Link to='/dashboard' onClick={()=>setProfileDropdown(false)} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
                     </li>
                     <div className="h-[1px] w-[90%] mx-auto bg-gray-300 dark:bg-gray-500"></div>
                     <li className="mt-2">
-                        <Link class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Log Out</Link>
+                        <Link onClick={()=>setProfileDropdown(false)} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Log Out</Link>
                     </li>
                    </ul>
                </div>
