@@ -7,28 +7,25 @@ import { useDispatch , useSelector } from 'react-redux';
 import { changeMode } from '../Redux/user/darkSlice'
 
 const Header = () => {
-    const [profileDropdown , setProfileDropdown] = useState(false);
-    const dropdownRef = useRef();
-    const darkmodeRef = useRef();
-    console.log(dropdownRef);
-
-    useEffect( () => {
-      let dropdownHandler = (e)=>{
-        if(!dropdownRef.current.contains(e.target)&&!darkmodeRef.current.contains(e.target)){
-          setProfileDropdown(false);
-        }
-      };
-      document.addEventListener('mousedown',dropdownHandler);
-      return () =>{
-        document.removeEventListener('mousedown',dropdownHandler);
+  const [profileDropdown , setProfileDropdown] = useState(false);
+  const dropdownRef = useRef();
+  const darkmodeRef = useRef();
+  useEffect( () => {
+    let dropdownHandler = (e)=>{
+      if(!dropdownRef.current.contains(e.target)&&!darkmodeRef.current.contains(e.target)){
+        setProfileDropdown(false);
       }
-    })
-
+    };
+    document.addEventListener('mousedown',dropdownHandler);
+    return () =>{
+      document.removeEventListener('mousedown',dropdownHandler);
+    }
+  })
     const location = useLocation();
+    console.log(location.search);
     const { mode:darkMode } = useSelector(state => state.dark);
     const { currentUser } = useSelector(state => state.user);
     const dispatch = useDispatch();
-  console.log(darkMode);
     const navLinkClickHandler = (path) =>{
         return location.pathname===path?('block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500'):("block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700");
     }
@@ -75,15 +72,15 @@ const Header = () => {
               <button onClick={()=>setProfileDropdown(!profileDropdown)}>
                 <img src={currentUser.profilePhoto} alt="user-img" className="h-[40px] w-[40px] rounded-full border border-black dark:border-white"/>
               </button>
-              <div class={(profileDropdown?("absolute translate-y-0 block right-0 opacity-100 "):("absolute scale-0 -translate-y-20 translate-x-8 right-0 opacity-0 "))+" bg-white rounded-lg shadow dark:bg-gray-900 border dark:border-gray-700 transition-transform duration-500 ease-in-out"}
+              <div className={(profileDropdown?("absolute translate-y-0 block right-0 opacity-100 "):("absolute scale-0 -translate-y-20 translate-x-8 right-0 opacity-0 "))+" bg-white rounded-lg shadow dark:bg-gray-900 border dark:border-gray-700 transition-transform duration-500 ease-in-out"}
               >
-                   <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                   <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li className="mb-2">
-                        <Link to='/dashboard' onClick={()=>setProfileDropdown(false)} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
+                        <Link to='/dashboard' onClick={()=>setProfileDropdown(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
                     </li>
                     <div className="h-[1px] w-[90%] mx-auto bg-gray-300 dark:bg-gray-500"></div>
                     <li className="mt-2">
-                        <Link onClick={()=>setProfileDropdown(false)} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Log Out</Link>
+                        <Link onClick={()=>setProfileDropdown(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Log Out</Link>
                     </li>
                    </ul>
                </div>

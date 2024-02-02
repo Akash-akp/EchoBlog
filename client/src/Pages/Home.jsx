@@ -10,6 +10,7 @@ const Home = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const fetchData = async() =>{
+    setLoading(true);
     try{
       const res = await fetch('https://akash-akp.github.io/api-test/testimonialReview.js');
       const d = await res.json();
