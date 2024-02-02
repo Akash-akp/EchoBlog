@@ -7,8 +7,10 @@ import { useDispatch , useSelector } from 'react-redux';
 import { changeMode } from '../Redux/user/darkSlice'
 
 const Header = () => {
+    const [profileDropdown , setProfileDropdown] = useState(false);
     const location = useLocation();
     const { mode:darkMode } = useSelector(state => state.dark);
+    const { currentUser } = useSelector(state => state.user);
     const dispatch = useDispatch();
   console.log(darkMode);
     const navLinkClickHandler = (path) =>{
@@ -52,12 +54,34 @@ const Header = () => {
             <button onClick={darkModeHandler} className=" h-[30px] w-[30px] flex justify-center items-center rounded-full text-sm border text-gray-800 dark:text-gray-300 dark:border-gray-300 border-gray-800 ">
                 {darkMode?(<MdSunny />):(<IoMdMoon />)}
             </button>
-            <Link to='/sign-up' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            {currentUser?
+            (<div className="max-w-[1280px] relative">
+              <button onClick={()=>setProfileDropdown(!profileDropdown)}>
+                <img src={currentUser.profilePhoto} alt="user-img" className="h-[40px] w-[40px] rounded-full border border-black dark:border-white"/>
+              </button>
+              <div class={(profileDropdown?("absolute top-[50px] right-0 "):("hidden "))+" bg-white rounded-lg shadow dark:bg-gray-900 border dark:border-gray-700"}>
+                   <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                    <li className="mb-2">
+                        <Link class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
+                    </li>
+                    <div className="h-[1px] w-[90%] mx-auto bg-gray-300 dark:bg-gray-500"></div>
+                    <li className="mt-2">
+                        <Link class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Log Out</Link>
+                    </li>
+                   </ul>
+               </div>
+            </div>)
+            :
+            (<div className="flex gap-3">
+              <Link to='/sign-up' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Register
             </Link>
             <Link to='/sign-in' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Login
             </Link>
+            </div>)
+            }
+            
           </div>
           <div
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
