@@ -24,7 +24,6 @@ const Header = () => {
     }
   })
     const location = useLocation();
-    console.log(location.search);
     const { mode:darkMode } = useSelector(state => state.dark);
     const dispatch = useDispatch();
     const navLinkClickHandler = (path) =>{
@@ -41,7 +40,7 @@ const Header = () => {
 
   return (
     <div className="">
-      <nav className="bg-white dark:bg-gray-900 relative w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+      <nav className="bg-white dark:bg-gray-900 relative w-full z-20 top-0 start-0 border-b-4 border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link to='/'>
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -77,7 +76,7 @@ const Header = () => {
               >
                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                     <li className="mb-2">
-                        <Link to='/dashboard' onClick={()=>setProfileDropdown(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
+                        <Link to='/dashboard?tab=profile' onClick={()=>setProfileDropdown(false)} className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Dashboard</Link>
                     </li>
                     <div className="h-[1px] w-[90%] mx-auto bg-gray-300 dark:bg-gray-500"></div>
                     <li className="mt-2">

@@ -1,5 +1,5 @@
 import React from 'react'
-import blogHeroImg from '../img/blog-hero-img.png'
+import blogHeroImg from '../../img/blog-hero-img.png'
 import StandardBtn from '../StandardBtn'
 
 const HeroSection = () => {
