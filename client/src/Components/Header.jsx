@@ -2,7 +2,6 @@ import { React , useState , useRef, useEffect } from "react";
 import { Link , NavLink , useLocation } from "react-router-dom"
 import { IoMdMoon } from "react-icons/io";
 import { MdSunny } from "react-icons/md";
-import { CiSearch } from "react-icons/ci";
 import { useDispatch , useSelector } from 'react-redux';
 import { changeMode } from '../Redux/user/darkSlice'
 import { logout } from "../Redux/user/userSlice";
@@ -47,22 +46,7 @@ const Header = () => {
                 EchoBlog
                 </span>
             </Link>
-            <form onSubmit={searchHandler} className="flex items-center">   
-                <div className="relative lg:w-[200px] w-[40px]">
-                    <input 
-                    type="text" 
-                    className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-full lg:rounded-lg focus:ring-blue-500 focus:border-blue-500 hidden lg:block lg:w-[180px]  lg:pl-3 lg:pr-8 py-2 dark:bg-gray-700 dark:border-gray-600 placeholder:text-transparent lg:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    placeholder="Search..." 
-                    />
-                    <div className="lg:hidden h-[30px] w-[30px] border border-gray-300 rounded-full">
 
-                    </div>
-                    {/* Search Icon */}
-                    <button type="button" className="absolute text-lg lg:right-7 lg:top-[10px] right-[16px] top-[6px] text-gray-700 dark:text-gray-400 flex items-center">
-                        <CiSearch />
-                    </button>
-                </div>
-            </form>
           <div className="flex items-center md:order-2 space-x-3 md:space-x-4 rtl:space-x-reverse">
             <button onClick={darkModeHandler} className=" h-[30px] w-[30px] flex justify-center items-center rounded-full text-sm border text-gray-800 dark:text-gray-300 dark:border-gray-300 border-gray-800 " ref={darkmodeRef} >
                 {darkMode?(<MdSunny />):(<IoMdMoon />)}

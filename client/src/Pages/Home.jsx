@@ -25,7 +25,7 @@ const Home = () => {
   },[]);
 
   return (
-    <div className='bg-lightBgColor dark:bg-gray-700 dark:text-white'>
+    <div className='bg-lightBgColor dark:bg-gray-800 dark:text-white'>
 
       <HeroSection />
 
