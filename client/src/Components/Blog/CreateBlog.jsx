@@ -26,6 +26,10 @@ const CreateBlog = ({setCreateBlogUI}) => {
     }
 
     const createBtnHandler = async(event) => {
+        if(!formData.title||!formData.body){
+            toast.error("Add title and body");
+            return;
+        }
         const postData = {
             user: currentUser._id,
             title: formData.title,
@@ -45,6 +49,8 @@ const CreateBlog = ({setCreateBlogUI}) => {
         }catch(error){
             toast.error("Server Error");
         }
+        setCreateBlogUI(false);
+        window.location.reload();
     }
   return (
   <div className='w-screen h-screen fixed flex justify-center items-center top-0 z-30'>
