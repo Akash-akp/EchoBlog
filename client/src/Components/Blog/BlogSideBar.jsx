@@ -1,7 +1,7 @@
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 
-const BlogSideBar = () => {
+const BlogSideBar = ({setCreateBlogUI}) => {
   return (
     <div className="w-[300px] p-5 h-full bg-lightBgColor dark:bg-gray-800 flex flex-col items-center shadow-2xl">
       <div className="sticky top-5">
@@ -71,6 +71,10 @@ const BlogSideBar = () => {
             <label> Most Followed </label>
           </div>
         </div>
+
+        <button onClick={()=>setCreateBlogUI(true)} className={` dark:text-white dark:bg-gray-600 my-5 block text-xl font-medium m-2 py-2 w-[90%] rounded-lg text-center border border-gray-400 hover:bg-white dark:border-gray-800 dark:hover:bg-gray-900 bg-gray-300 `}>
+          Create Post
+        </button>
 
       </div>
 
