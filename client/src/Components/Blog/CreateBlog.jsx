@@ -13,7 +13,7 @@ const CreateBlog = ({setCreateBlogUI}) => {
         return ()=>{
             document.removeEventListener('mousedown',createBlogHandler);
         }
-    })
+    },[cardRef])
   return (
   <div className='w-screen h-screen fixed flex justify-center items-center top-0 z-30'>
     <div className='w-full h-full bg-gray-800 dark:bg-gray-500 opacity-80 z-40'>
