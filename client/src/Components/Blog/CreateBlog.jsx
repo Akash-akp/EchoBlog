@@ -1,7 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import StandardBtn from '../StandardBtn'
+import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const CreateBlog = ({setCreateBlogUI}) => {
+    const {currentUser} = useSelector(state => state.user);
+    const [formData, setFormData] = useState({title:"",body:""});
     const cardRef = useRef();
     useEffect( ()=>{
         let createBlogHandler = (e)=>{
@@ -13,7 +17,35 @@ const CreateBlog = ({setCreateBlogUI}) => {
         return ()=>{
             document.removeEventListener('mousedown',createBlogHandler);
         }
-    },[cardRef])
+    },[cardRef]);
+
+    const formChangeHandler = (event) =>{
+        setFormData((prev)=>{
+            return {...prev,[event.target.name]:event.target.value}
+        })
+    }
+
+    const createBtnHandler = async(event) => {
+        const postData = {
+            user: currentUser._id,
+            title: formData.title,
+            body: formData.body
+        }
+        console.log(postData);
+        try{
+            const res = await fetch('api/post/createPost',{
+                method: 'post',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(postData)
+            });
+            const data = await res.json();
+            console.log(data);
+
+
+        }catch(error){
+            toast.error("Server Error");
+        }
+    }
   return (
   <div className='w-screen h-screen fixed flex justify-center items-center top-0 z-30'>
     <div className='w-full h-full bg-gray-800 dark:bg-gray-500 opacity-80 z-40'>
@@ -28,13 +60,13 @@ const CreateBlog = ({setCreateBlogUI}) => {
                 <div className='font-semibold w-[100px]'>
                     Title : 
                 </div>
-                <input type='text' className='bg-gray-300 dark:bg-gray-600 px-2 py-1 font-thin rounded-lg w-[530px]' required/>
+                <input onChange={formChangeHandler} type='text' name='title' className='bg-gray-300 dark:bg-gray-600 px-2 py-1 font-thin rounded-lg w-[530px]' value={formData.title} required/>
             </div>
             <div className='flex gap-2 text-2xl mt-5 items-center'>
                 <div className='font-semibold w-[100px]'>
                     Body : 
                 </div>
-                <textarea rows={10}  className='bg-gray-300 dark:bg-gray-600 px-2 py-1 font-thin rounded-lg w-[530px]' required/>
+                <textarea onChange={formChangeHandler} rows={10} name='body'  className='bg-gray-300 dark:bg-gray-600 px-2 py-1 font-thin rounded-lg w-[530px]' value={formData.body} required/>
             </div>
             <div className='flex gap-2 text-2xl mt-5 items-center'>
                 <div className='font-semibold w-[100px]'>
@@ -42,7 +74,9 @@ const CreateBlog = ({setCreateBlogUI}) => {
                 </div>
                 <input type='file' className='bg-gray-300 dark:bg-gray-600 px-2 py-1 font-thin rounded-lg w-[530px]' />
             </div>
-            <StandardBtn value={"Post"} addon={" m-5 rounded-full text-xl px-[50px] "} />
+            <button onClick={createBtnHandler} className='mt-7'>
+                <StandardBtn value={"Post"} addon={" rounded-full text-xl px-[50px] "} />
+            </button>
         </form>
     </div>
   </div>
