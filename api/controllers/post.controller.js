@@ -14,6 +14,18 @@ export const getPost = async(req,res,next)=>{
     }
 }
 
+export const getPostById = async(req,res,next)=>{
+    const id = req.query.id;
+    try{
+        const currentPost = await Post.findById(id).populate("user").populate("comments").exec();
+        res.status(200).json({
+            post: currentPost
+        });
+    }catch(error){
+        next();
+    }
+}
+
 export const createPost = async(req,res,next) => {
     try{
         const {user,title,body,likes,comments} = req.body;

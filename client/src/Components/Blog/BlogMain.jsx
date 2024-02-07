@@ -28,7 +28,7 @@ const BlogMain = () => {
           (
             allPost.post.map((pst,index)=>{
               return (
-                <Link to='/blog-post'>
+                <Link to={`/blog-post?id=${pst._id}`}>
               <BlogCard key={index} title={pst.title} body={pst.body} userName={pst.user.userName} likesCount={pst.likes.length} commentsCount={pst.comments.length} userProfileImg={pst.user.profilePhoto} />
               </Link>
               )
