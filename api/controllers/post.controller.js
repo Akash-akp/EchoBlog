@@ -1,6 +1,7 @@
 import Post from "../models/post.model.js"
 import Comment from "../models/comment.model.js"
 import Likes from "../models/likes.model.js"
+import User from "../models/user.model.js"
 
 
 export const getPost = async(req,res,next)=>{
@@ -9,6 +10,18 @@ export const getPost = async(req,res,next)=>{
         res.status(200).json({
             post
         })
+    }catch(error){
+        next();
+    }
+}
+
+export const getUserById = async(req,res,next)=>{
+    const id = req.query.id;
+    try{
+        const currentPost = await User.findById(id);
+        res.status(200).json({
+            user: currentPost
+        });
     }catch(error){
         next();
     }
