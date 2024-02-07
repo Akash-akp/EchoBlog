@@ -56,7 +56,7 @@ export const createComment = async(req,res,next) => {
 }
 
 export const deleteComment = (req,res,next) => {
-
+    
 }
 
 export const addLike = async(req,res,next) => {

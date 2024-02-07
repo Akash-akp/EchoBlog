@@ -9,6 +9,7 @@ import Contact from './Pages/Contact';
 import FormUI from './Pages/FormUI';
 import Footer from './Components/Footer';
 import PrivateRouter from './Components/PrivateRouter';
+import BlogPost from './Components/Blog/BlogPost';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/sign-up' element={<FormUI />} />
           <Route element={<PrivateRouter />}>
             <Route path='/blog' element={<Blog />} />
+            <Route path='/blog-post' element={<BlogPost />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/project' element={<Project />} />

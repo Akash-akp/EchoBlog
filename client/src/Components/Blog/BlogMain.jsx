@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import BlogCard from './BlogCard'
+import { Link } from 'react-router-dom';
 
 const BlogMain = () => {
   const [loading,setLoading] = useState(true);
@@ -26,7 +27,11 @@ const BlogMain = () => {
           (<div> </div>):
           (
             allPost.post.map((pst,index)=>{
-              return (<BlogCard key={index} title={pst.title} body={pst.body} userName={pst.user.userName} likesCount={pst.likes.length} commentsCount={pst.comments.length} userProfileImg={pst.user.profilePhoto} />)
+              return (
+                <Link to='/blog-post'>
+              <BlogCard key={index} title={pst.title} body={pst.body} userName={pst.user.userName} likesCount={pst.likes.length} commentsCount={pst.comments.length} userProfileImg={pst.user.profilePhoto} />
+              </Link>
+              )
           })
           )
           }

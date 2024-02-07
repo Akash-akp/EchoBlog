@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import BlogSideBar from '../Components/Blog/BlogSideBar'
 import BlogMain from '../Components/Blog/BlogMain'
 import CreateBlog from '../Components/Blog/CreateBlog'
+import BlogPost from '../Components/Blog/BlogPost'
 
 const About = () => {
   const [createBlogUI,setCreateBlogUI] = useState(false);
