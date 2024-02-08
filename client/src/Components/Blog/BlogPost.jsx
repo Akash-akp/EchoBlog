@@ -111,7 +111,7 @@ const BlogPost = () => {
 
   return (
     loading?
-    (<div>
+    (<div className='h-screen dark:bg-gray-800 bg-lightBgColor'>
 
     </div>)
     :
@@ -131,7 +131,7 @@ const BlogPost = () => {
             {postData.comments.length} <FaComments />
         </div>      
         <div>
-            {postData.user._id==currentUser._id?
+            {postData.user._id===currentUser._id?
             (<div className='flex gap-3 mb-6'>
                 <StandardBtn value={"Edit"} addon={'rounded-lg'} />
                 <Link to="/blog" className='rounded-lg text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'>

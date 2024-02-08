@@ -57,7 +57,7 @@ export const createPost = async(req,res,next) => {
     
 }
 
-export const deletePost = (req,res,next) => {
+export const deletePost = async(req,res,next) => {
 
 }
 
@@ -80,8 +80,21 @@ export const createComment = async(req,res,next) => {
     }
 }
 
-export const deleteComment = (req,res,next) => {
-    
+export const removeComment = async(req,res,next) => {
+    const post = req.body.post;
+    const delComment = req.body.id;
+    try{
+        const postData = await Post.findOneAndUpdate({_id:post},{
+            $pull: {comments:delComment}
+        });
+
+        const deletedData = await Comment.deleteOne({_id:delComment});
+        res.status(200).json({
+            deletedData
+        });
+    }catch(error){
+        next();
+    }
 }
 
 export const isLike = async(req,res,next) => {

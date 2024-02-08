@@ -15,7 +15,7 @@ const BlogPostComments = ({postData}) => {
             {postData.comments.map((cmnt,index)=>{
                 return(
                     <div key={index} className='w-full border my-5 flex flex-col bg-white rounded-lg text-black'>
-                        <BlogPostEachComment cmnt={cmnt} />
+                        <BlogPostEachComment cmnt={cmnt} postData={postData} />
                     </div>
                 )
             })}
