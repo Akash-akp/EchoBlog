@@ -7,8 +7,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import StandardBtn from '../StandardBtn';
 import BlogPostComments from './BlogPostComments';
+import { TbThumbUpFilled } from "react-icons/tb";
+import { FaComments } from "react-icons/fa6";
 
 const BlogPost = () => {
+    const [isLiked, setIsLiked] = useState(null);
     const [commentData, setCommentData] = useState('');
     const [loading , setLoading] = useState(true);
     const [postData , setPostData] = useState(null)
@@ -18,21 +21,34 @@ const BlogPost = () => {
     useEffect(()=>{
         const urlParam = new URLSearchParams(location.search);
         const tabFromURL = urlParam.get('id');
-        console.log(tabFromURL);
         try{
             setLoading(true);
             const getUser = async() => {
                 const data = await fetch(`/api/post/getPostById?id=${tabFromURL}`);
                 const userinfo = await data.json();
-                console.log(userinfo);
+                const data2body = {
+                    post: userinfo.post._id,
+                    user: currentUser._id
+                }
+                const data2 = await fetch('/api/post/isLike',{
+                    method: 'post',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(data2body)
+                })
+                const likedata = await data2.json();
                 setPostData(userinfo.post);
+                if(likedata.likeId){
+                    setIsLiked(likedata.likeId._id);
+                }else{
+                    setIsLiked(null);
+                }
                 setLoading(false)
             }
             getUser();
         }catch(error){
             toast.error("Server Error");
         }
-    },[]);
+    },[isLiked]);
 
 
     const createCommentHandler = async()=>{
@@ -47,8 +63,50 @@ const BlogPost = () => {
             body: JSON.stringify(newComment)
         })
         const newCommentData = await data.json();
-        console.log(newCommentData);
         window.location.reload();
+    }
+
+    const likeHandler = async() => {
+        if(isLiked!=null){
+            const removeLike = {
+                post: postData._id,
+                id: isLiked,
+                user: currentUser._id
+            }
+            console.log("isLiked",isLiked);
+            try{
+                const data = await fetch('/api/post/removeLike',{
+                    method:'DELETE',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(removeLike)
+                })
+                const likeData = await data.json();
+                console.log(likeData);
+                toast.success("UnLiked");
+                setIsLiked(null);
+            }catch(error){
+                toast.error("Unable to unlike");
+            }
+            
+        }else{
+            const newLike = {
+                post: postData._id,
+                user: currentUser._id,
+            }
+            try{
+                const data = await fetch('/api/post/addLike',{
+                    method:'post',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(newLike)
+                })
+                const pData = await data.json();
+                console.log(pData.like._id);
+                setIsLiked(pData.like._id);
+                toast.success("Liked");
+            }catch(error){
+                toast.error("Unable to like");
+            }
+        }
     }
 
   return (
@@ -62,12 +120,16 @@ const BlogPost = () => {
         <div>
             <img src={postData.user.profilePhoto} alt='' className='h-[100px] w-[100px] mt-9 rounded-full border border-gray-800 dark:border-gray-300' />
         </div>
-        <div className='flex text-lg mt-1 mb-3 items-center'>
+        <div className='flex text-lg mt-1 items-center'>
             <p className='mx-3'>
                 {postData.user.userName}
             </p>
-            <IoPeople />       
+            <IoPeople /> 
         </div>
+        <div className='flex gap-1 items-center text-md text-black mb-3 dark:text-white'>
+            {postData.likes.length} <TbThumbUpFilled className='mr-3' />
+            {postData.comments.length} <FaComments />
+        </div>      
         <div>
             {postData.user._id==currentUser._id?
             (<div className='flex gap-3 mb-6'>
@@ -91,7 +153,7 @@ const BlogPost = () => {
             {postData.body}
         </div>
         <div className='flex justify-between w-[90%]'>
-            <button className='flex items-center my-3 text-2xl border py-2 px-3 rounded-lg border-black dark:border-gray-300'>
+            <button onClick={likeHandler} className={` ${isLiked?('bg-blue-700 text-white border-gray-300'):('')} flex items-center my-3 text-2xl border py-2 px-3 rounded-lg border-black dark:border-gray-300 hover:bg-blue-700 hover:text-white hover:border-white relative`}>
                 <AiOutlineLike /> Like
             </button>
             <Link to='/blog' className='flex items-center my-3 text-2xl border py-2 px-3 rounded-lg border-black dark:border-gray-300'>

@@ -8,7 +8,6 @@ const BlogPostEachComment = ({cmnt}) => {
         const data = await fetch(`/api/post/getUserById?id=${id}`);
         const userinfo = await data.json();
         setUserInfo(userinfo.user);
-        console.log(userinfo);
         setLoading(false);
     }
     useEffect(()=>{

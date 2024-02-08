@@ -84,12 +84,31 @@ export const deleteComment = (req,res,next) => {
     
 }
 
+export const isLike = async(req,res,next) => {
+    try{
+        const {post,user} = req.body;
+        const isLiked = await Likes.findOne({post,user});
+        if(isLiked){
+            res.status(200).json({
+                isLiked: true,
+                likeId: isLiked
+            })
+        }else{
+            res.status(200).json({
+                isLiked: false,
+                likeId: null
+            })
+        }
+    }catch(error){
+        next();
+    }
+}
+
 export const addLike = async(req,res,next) => {
     try{
         const {post,user} = req.body;
         const newLike = new Likes({post,user});
         const isLiked = await Likes.findOne({post,user});
-        console.log(isLiked);
         if(isLiked){
             res.status(200).json({
                 isLiked
@@ -100,7 +119,8 @@ export const addLike = async(req,res,next) => {
             .populate("user comments likes")
             .exec();
             res.status(200).json({
-                post: updatedPost
+                post: updatedPost,
+                like: updatedLike
             })
         }
     }catch(error){
@@ -109,12 +129,13 @@ export const addLike = async(req,res,next) => {
 }
 
 export const removeLike = async(req,res,next) => {
+    console.log("hello");
     try{
         const like = req.body;
         const targetPost = await Post.findOneAndUpdate({_id:like.post},{
-            $pull: {likes:like._id}
+            $pull: {likes:like.id}
         }, {new:true});
-        const isLiked = await Likes.deleteOne(like);
+        const isLiked = await Likes.deleteOne({_id:like.id});
         res.status(200).json({
             isLiked
         })
