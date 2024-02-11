@@ -49,19 +49,19 @@ const DashPersonal = () => {
                     <div className='font-semibold w-[210px]'>
                         Address :
                     </div>
-                    <input type='password' className='dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]' required />
+                    <input type='text' className='dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]' required />
                 </div>
                 <div className='flex gap-2 text-2xl mt-5 items-center'>
                     <div className='font-semibold w-[210px]'>
                         City :
                     </div>
-                    <input type='password' className='dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]' required />
+                    <input type='text' className='dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]' required />
                 </div>
                 <div className='flex gap-2 text-2xl mt-5 items-center'>
                     <div className='font-semibold w-[210px]'>
                         Country :
                     </div>
-                    <select type='password' className='dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]'> 
+                    <select className='dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]'> 
                         <option>Choose Country</option>
                         <option>India</option>
                         <option>Nepal</option>
