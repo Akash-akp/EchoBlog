@@ -4,7 +4,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { FaRegComments } from "react-icons/fa";
 import { IoPeople } from "react-icons/io5";
 
-const BlogCard = ({title,body,userName,likesCount,commentsCount,userProfileImg}) => {
+const BlogCard = ({title,body,userName,likesCount,commentsCount,userProfileImg,noFollower}) => {
   if(userName.length>12){
     userName = userName.substring(0,10)+"...";
   }
@@ -26,7 +26,7 @@ const BlogCard = ({title,body,userName,likesCount,commentsCount,userProfileImg})
                 <div className='mr-1'>
                     {userName}
                 </div>
-                0 <IoPeople className='text-lg ' />
+                {noFollower} <IoPeople className='text-lg ' />
             </div>
             <div className='flex items-center gap-2'>
                 <div className='flex'> 

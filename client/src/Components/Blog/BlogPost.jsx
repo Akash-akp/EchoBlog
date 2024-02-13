@@ -3,14 +3,18 @@ import { AiOutlineLike } from "react-icons/ai";
 import { FaRegComments } from "react-icons/fa";
 import { IoPeople } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import StandardBtn from '../StandardBtn';
 import BlogPostComments from './BlogPostComments';
 import { TbThumbUpFilled } from "react-icons/tb";
 import { FaComments } from "react-icons/fa6";
+import { signInSuccess } from '../../Redux/user/userSlice';
+import UpdateBlog from './UpdateBlog';
 
 const BlogPost = () => {
+    const [isPostUserFollowed , setIsPostUserFollowed] = useState(false);
+    const [isUpdateShow,setIsUpdateShow] = useState(false);
     const [isLiked, setIsLiked] = useState(null);
     const [commentData, setCommentData] = useState('');
     const [loading , setLoading] = useState(true);
@@ -18,6 +22,7 @@ const BlogPost = () => {
     const dispatch = useDispatch();
     const {currentUser} = useSelector(state => state.user);
     const location = useLocation();
+    const navigate = useNavigate();
     useEffect(()=>{
         const urlParam = new URLSearchParams(location.search);
         const tabFromURL = urlParam.get('id');
@@ -37,6 +42,8 @@ const BlogPost = () => {
                 })
                 const likedata = await data2.json();
                 setPostData(userinfo.post);
+                console.log(userinfo.post)
+                setIsPostUserFollowed(currentUser.following.includes(userinfo.post.user._id));
                 if(likedata.likeId){
                     setIsLiked(likedata.likeId._id);
                 }else{
@@ -48,7 +55,7 @@ const BlogPost = () => {
         }catch(error){
             toast.error("Server Error");
         }
-    },[isLiked]);
+    },[isLiked,isPostUserFollowed]);
 
 
     const createCommentHandler = async()=>{
@@ -109,6 +116,70 @@ const BlogPost = () => {
         }
     }
 
+    const FollowHandler = async(event)=>{
+        try{
+            const FollowData = {
+                id : postData.user._id,
+                selfid : currentUser._id
+            }
+            console.log(FollowData);
+            const data = await fetch('/api/user/followUser',{
+                method:'post',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(FollowData)
+            })
+            const d = await data.json();
+            dispatch(signInSuccess(d.user));
+            setIsPostUserFollowed(!isPostUserFollowed);
+        }catch(error){
+            toast.error("Cannot Followed");
+        }
+    }
+    
+    const unFollowHandler = async(event)=>{
+        try{
+            const FollowData = {
+                id : postData.user._id,
+                selfid : currentUser._id
+            }
+            console.log(FollowData);
+            const data = await fetch('/api/user/unFollowUser',{
+                method:'post',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(FollowData)
+            })
+            const d = await data.json();
+            dispatch(signInSuccess(d.user));
+            setIsPostUserFollowed(!isPostUserFollowed);
+        }catch(error){
+            toast.error("Cannot UnFollowed");
+        }
+    }
+
+    const removePostHandler = async(event) => {
+        try{
+            const removePostIdData = {
+                id: postData._id
+            }
+            const data = await fetch('/api/post/removePost',{
+                method: 'delete',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(removePostIdData)
+            });
+            setTimeout(()=>{
+                window.location.reload();
+            },2000);
+            toast.success("Post Deleted");
+        }catch(error){
+            toast.error("Unable to delete post");
+        }
+    }
+
+    const editClickHandler = (event)=>{
+        event.preventDefault();
+        setIsUpdateShow(true);
+    }
+
   return (
     loading?
     (<div className='h-screen dark:bg-gray-800 bg-lightBgColor'>
@@ -117,6 +188,7 @@ const BlogPost = () => {
     :
     (
     <div className='flex flex-col items-center bg-lightBgColor dark:bg-gray-800 dark:text-white'>
+        {isUpdateShow?(<UpdateBlog setIsUpdateShow={setIsUpdateShow} postData={postData} />):(<div></div>)}
         <div>
             <img src={postData.user.profilePhoto} alt='' className='h-[100px] w-[100px] mt-9 rounded-full border border-gray-800 dark:border-gray-300' />
         </div>
@@ -124,7 +196,8 @@ const BlogPost = () => {
             <p className='mx-3'>
                 {postData.user.userName}
             </p>
-            <IoPeople /> 
+            {postData.user.follower.length} 
+            <IoPeople className='ml-1' /> 
         </div>
         <div className='flex gap-1 items-center text-md text-black mb-3 dark:text-white'>
             {postData.likes.length} <TbThumbUpFilled className='mr-3' />
@@ -133,14 +206,24 @@ const BlogPost = () => {
         <div>
             {postData.user._id===currentUser._id?
             (<div className='flex gap-3 mb-6'>
-                <StandardBtn value={"Edit"} addon={'rounded-lg'} />
-                <Link to="/blog" className='rounded-lg text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'>
+                <button onClick={editClickHandler}>
+                    <StandardBtn value={"Edit"} addon={'rounded-lg'} />
+                </button>
+                <Link to="/blog" onClick={removePostHandler} className='rounded-lg text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'>
                     Remove
                 </Link>    
             </div>)
             :
             (<div className='flex gap-3 mb-6'>
-                    <StandardBtn value={"Follow"} addon={'rounded-lg'} />
+                    {isPostUserFollowed?(
+                        <button onClick={unFollowHandler} >
+                            <StandardBtn address={`/blog-post?id=${postData._id}`} value={"UnFollow"} addon={'rounded-lg'}/>
+                        </button>
+                    ):(
+                        <button onClick={FollowHandler} >
+                            <StandardBtn address={`/blog-post?id=${postData._id}`} value={"Follow"} addon={'rounded-lg'}/>
+                        </button>
+                    )}
                     <Link className='rounded-lg text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'>
                         Block
                     </Link>

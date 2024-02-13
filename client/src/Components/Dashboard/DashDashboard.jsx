@@ -10,7 +10,7 @@ const DashDashboard = () => {
     }
   return (
     <div className="flex flex-col items-center my-5 dark:text-white ">
-      <div className="mx-auto text-5xl my-3 font-semibold ">Profile</div>
+      <div className="mx-auto text-5xl my-3 font-semibold ">Dashboard</div>
       <div>
         <img
           src={currentUser.profilePhoto}
@@ -18,53 +18,32 @@ const DashDashboard = () => {
           className="w-[100px] h-[100px] rounded-full border border-gray-700 dark:border-gray-300"
         ></img>
       </div>
-      <div>
-        <form>
-          <div className="flex gap-2 text-2xl mt-5 items-center">
-            <div className="font-semibold w-[210px]">User Name :</div>
-            <input
-              onChange={inputChangeHandler}
-              className="bg-gray-300 dark:bg-gray-600 px-2 py-1 font-thin rounded-lg w-[330px]"
-              value={userName}
-            />
-          </div>
-          <div className="flex gap-2 text-2xl mt-5 items-center">
-            <div className="font-semibold w-[210px]">Email Id :</div>
-            <div className="dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]">
-              {currentUser.email}
+        <div>
+          {currentUser.userName}
+        </div>
+        <div className="my-3 flex gap-2">
+          <div className="w-[150px] h-[150px] bg-blue-500 dark:bg-blue-600 hover:bg-blue-800 dark:hover:bg-blue-900 rounded-lg shadow-xl flex flex-col items-center justify-center">
+            <div className="text-5xl text-white my-2">
+              {currentUser.follower.length}
+            </div>
+            <div className="text-xl text-white">
+              Follower
             </div>
           </div>
-          <div className="flex gap-2 text-2xl mt-5 items-center">
-            <div className="font-semibold w-[210px]">User Id :</div>
-            <input
-              type="text"
-              className="dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]"
-              required
-            />
+          <div className="w-[150px] h-[150px] bg-red-500 dark:bg-red-600 hover:bg-red-800 dark:hover:bg-red-900 rounded-lg shadow-xl flex flex-col items-center justify-center">
+            <div className="text-5xl text-white my-2">
+              {currentUser.following.length}
+            </div>
+            <div className="text-xl text-white">
+              Following
+            </div>
           </div>
-          <div className="flex gap-2 text-2xl mt-5 items-center">
-            <div className="font-semibold w-[210px]">Change Password :</div>
-            <input
-              type="password"
-              className="dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]"
-              required
-            />
+        </div>
+        <div className="h-[80px] w-[300px] bg-gray-500 hover:bg-gray-800 rounded-lg shadow-xl">
+          <div className="h-full w-full flex justify-center items-center text-3xl text-white">
+            Post Count: {6}
           </div>
-          <div className="flex gap-2 text-2xl mt-5 items-center">
-            <div className="font-semibold w-[210px]">Confirm Password :</div>
-            <input
-              type="password"
-              className="dark:bg-gray-600 bg-gray-300 px-2 py-1 font-thin rounded-lg w-[330px]"
-              required
-            />
-          </div>
-          <div className="text-center my-5">
-            <button className="text-white rounded-lg w-[100px] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-lg px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              Update
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
   );
 };

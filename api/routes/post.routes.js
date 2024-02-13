@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPost , createComment , getPost , addLike ,removeLike, getPostById, getUserById, isLike, removeComment } from '../controllers/post.controller.js';
+import { createPost , createComment , getPost , addLike ,removeLike, getPostById, getUserById, isLike, removeComment, deletePost } from '../controllers/post.controller.js';
 
 const router = express.Router();
 router.get('/getPost',getPost);
@@ -12,6 +12,7 @@ router.post('/addLike',addLike);
 router.post('/isLike',isLike);
 router.delete('/removeLike',removeLike);
 router.delete('/removeComment',removeComment)
+router.delete('/removePost',deletePost)
 
 
 

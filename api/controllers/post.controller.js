@@ -58,7 +58,22 @@ export const createPost = async(req,res,next) => {
 }
 
 export const deletePost = async(req,res,next) => {
-
+    try{
+        const id = req.body.id;
+        const selectedPost = await Post.findById(id);
+        selectedPost.likes.map(async(lk)=>{
+            const deletelk = await Likes.deleteOne({_id:lk});
+        })
+        selectedPost.comments.map(async(cmnt)=>{
+            const deletecmnt = await Comment.deleteOne({_id:cmnt});
+        })
+        const deleteThePost = await Post.deleteOne(selectedPost);
+        res.status(200).json({
+            success: true,
+        })
+    }catch(error){
+        next();
+    }
 }
 
 export const createComment = async(req,res,next) => {

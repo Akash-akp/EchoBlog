@@ -85,7 +85,7 @@ const SignIn = () => {
           <span>Loading</span>
           </div>)
           :
-          (<div>SignUp</div>)}
+          (<div>Log In</div>)}
         </button>
         <p className='text-[10px] text-gray-500 dark:text-gray-400 relative bottom-1'>By login you agree to our <span className='text-blue-600 dark:text-blue-300 hover:underline'>Term of Use</span> and <span className='text-blue-600 dark:text-blue-300 hover:underline'>PrivacyPolicy</span>.</p>
       </form>
