@@ -41,7 +41,7 @@ const DashDashboard = () => {
         </div>
         <div className="h-[80px] w-[300px] bg-gray-500 hover:bg-gray-800 rounded-lg shadow-xl">
           <div className="h-full w-full flex justify-center items-center text-3xl text-white">
-            Post Count: {6}
+            Post Count: {currentUser.posts.length}
           </div>
         </div>
     </div>

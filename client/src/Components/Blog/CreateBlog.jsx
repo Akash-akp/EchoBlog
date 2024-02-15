@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import StandardBtn from '../StandardBtn'
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInSuccess } from '../../Redux/user/userSlice';
 
 const CreateBlog = ({setCreateBlogUI}) => {
+    const dispatch = useDispatch();
     const {currentUser} = useSelector(state => state.user);
     const [formData, setFormData] = useState({title:"",body:""});
     const cardRef = useRef();
@@ -43,8 +45,9 @@ const CreateBlog = ({setCreateBlogUI}) => {
                 body: JSON.stringify(postData)
             });
             const data = await res.json();
-            console.log(data);
-
+            const res2 = await fetch(`api/post/getUserById?id=${currentUser._id}`);
+            const data2 = await res2.json();
+            dispatch(signInSuccess(data2.user));
 
         }catch(error){
             toast.error("Server Error");

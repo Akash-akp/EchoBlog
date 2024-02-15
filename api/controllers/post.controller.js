@@ -48,6 +48,9 @@ export const createPost = async(req,res,next) => {
         const savedPost = await newPost.save();
         console.log(req.body);
         const updatedPost = await Post.findOne({user,title,body}).populate("user").exec();
+        const selectedUser = await User.findOneAndUpdate({_id:user},{
+            $push: {posts:savedPost}
+        })
         res.status(200).json({
             post: updatedPost
         })
@@ -73,6 +76,14 @@ export const deletePost = async(req,res,next) => {
         })
     }catch(error){
         next();
+    }
+}
+
+export const updatePost = async(req,res,next)=>{
+    try{
+
+    }catch(error){
+        
     }
 }
 
