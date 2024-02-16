@@ -3,7 +3,6 @@ import Comment from "../models/comment.model.js"
 import Likes from "../models/likes.model.js"
 import User from "../models/user.model.js"
 
-
 export const getPost = async(req,res,next)=>{
     try{
         const post = await Post.find().populate("user comments likes").exec();
@@ -69,6 +68,10 @@ export const deletePost = async(req,res,next) => {
         })
         selectedPost.comments.map(async(cmnt)=>{
             const deletecmnt = await Comment.deleteOne({_id:cmnt});
+        })
+        const userOfPost = await User.findById(selectedPost.user);
+        const deletepst = await User.findOneAndUpdate({_id:userOfPost},{
+            $pull: {posts:id}
         })
         const deleteThePost = await Post.deleteOne(selectedPost);
         res.status(200).json({

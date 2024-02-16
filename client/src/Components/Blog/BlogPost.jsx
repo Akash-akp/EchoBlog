@@ -169,6 +169,9 @@ const BlogPost = () => {
             setTimeout(()=>{
                 window.location.reload();
             },2000);
+            const userUpdate = await fetch(`/api/post/getUserById?id=${currentUser._id}`);
+            const userUpdateData = await userUpdate.json();
+            dispatch(signInSuccess(userUpdateData.user));
             toast.success("Post Deleted");
         }catch(error){
             toast.error("Unable to delete post");
